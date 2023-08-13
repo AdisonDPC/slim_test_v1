@@ -6,36 +6,13 @@ error_reporting(E_ALL);
 // Should be set to '0' in production.
 ini_set('display_errors', '1');
 
-// Settings.
+// Settings (APP).
 $aSettings = [
 
-    'view' => [
-        'path' => __DIR__ . '/../src/views',
-        'twig' => [ 'cache' => false ]
-    ],
-    'db' => [
-        'driver' => 'mysql',
-        'mysql' => [
-            'driver' => 'mysql',
-            'host' => '192.168.1.111:3344',
-            'database' => 'db_test',
-            'username' => 'testuser',
-            'password' => 'testuser@docker',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_spanish2_ci',
-            'prefix'    => ''
-        ],
-        'json' => [
-            'driver' => 'json',
-            'filename' => 'pokemons.json',
-            'path' => __DIR__ . '/../database'
-        ],
-        'txt' => [
-            'driver' => 'txt',
-            'filename' => 'phrases.txt',
-            'path' => __DIR__ . '/../database'
-        ]
-    ]
+    'name' => isset($_ENV['APP_NAME']) && $_ENV['APP_NAME'] != '' ? $_ENV['APP_NAME'] : 'Slim APP',
+    'env' => isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] != '' ? $_ENV['APP_ENV'] : 'devel',
+    'debug' => isset($_ENV['APP_DEBUG']) && $_ENV['APP_DEBUG'] != '' ? $_ENV['APP_DEBUG'] : true,
+    'url' => isset($_ENV['APP_URL']) && $_ENV['APP_URL'] != '' ? $_ENV['APP_URL'] : 'localhost'
 
 ];
 

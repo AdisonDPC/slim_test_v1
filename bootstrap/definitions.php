@@ -8,7 +8,15 @@ use Psr\Container\ContainerInterface,
 return [
 
     'config' => function () {
-        return require __DIR__ . '/../config/app.php';
+
+        $aConfig = [
+            'app' => require __DIR__ . '/../config/app.php',
+            'db' => require __DIR__ . '/../config/db.php',
+            'view' => require __DIR__ . '/../config/view.php'
+        ];
+
+        return $aConfig;
+
     },
 
     App::class => function (ContainerInterface $ciContainer) {

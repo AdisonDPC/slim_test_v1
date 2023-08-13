@@ -6,6 +6,8 @@ use DI\ContainerBuilder,
 
 require __DIR__ . '/../vendor/autoload.php';
 
+require __DIR__ . '/../config/dotenv.php';
+
 $cbContainerBuilder = new ContainerBuilder();
 
 $aDefinitions = require __DIR__ . '/definitions.php';
