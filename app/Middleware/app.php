@@ -8,6 +8,11 @@ use Psr\Container\ContainerInterface,
 
 return function (App $aApp) {
 
+    // Get container.
+    $cContainer = $aApp -> getContainer();
+
+    $aConfig = $cContainer -> get('config');
+
     // Parse json, form data and xml.
     $aApp -> addBodyParsingMiddleware();
 
@@ -17,12 +22,35 @@ return function (App $aApp) {
     // Handle exceptions.
     $aApp -> addErrorMiddleware(true, true, true);
 
-    // Twig.
-    $aApp -> add(TwigMiddleware::createFromContainer($aApp));
+    // BEGIN - Middleware (Twig | PHP-View).
+
+    $aProvider = [
+        'twig' => function () use ($aApp) {
+
+            d('Middleware (Twig)');
+
+            // Twig.
+            $aApp -> add(TwigMiddleware::createFromContainer($aApp));
+
+        },
+        'php-view' => function () use ($aApp) {
+
+            d('Middleware (PHP-View)');
+
+            // Create PHP-View
+            return null;
+
+        }
+    ];
+
+    if (isset($aProvider[ $aConfig['view']['provider'] ]))
+        $aProvider[ $aConfig['view']['provider'] ]();
+    else
+        $aProvider['twig']();
+
+    // END - Middleware (Twig | PHP-View).
 
     // BEGIN - APP MIDDLEWARE.
-
-    $cContainer = $aApp -> getContainer();
 
     $cContainer -> set('DB_Middleware', function(App $aApp, ContainerInterface $ciContainer) {
 

@@ -10,11 +10,15 @@ return function (App $aApp) {
     $cContainer = $aApp -> getContainer();
 
     $aApp -> get('/', function (Request $rRequest, Response $rResponse, $aArgs) {
+        
+        $aConfig = $this -> get('config');
 
-        return $this -> get('view') -> render($rResponse, 'welcome.twig', [
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+
+        return $this -> get('view') -> render($rResponse, 'welcome.' . $strExtension, [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.'
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).'
             ]
         ]);
         
@@ -128,10 +132,12 @@ return function (App $aApp) {
 
         $mixDB = $this -> get('db');
 
-        return $this -> get('view') -> render($rResponse, 'users.twig', [
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+
+        return $this -> get('view') -> render($rResponse, 'users.' . $strExtension, [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.',
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).',
                 'strType' => 'Closure',
                 'strDriver' => $aConfig['db']['driver']
             ],
@@ -210,12 +216,14 @@ return function (App $aApp) {
 
         $aData = $aConfig['db']['driver'] == 'mysql' ? 
             $mixDB -> table('pokemons') -> get() : 
-            json_decode(file_get_contents($mixDB['path'] . '/' . $mixDB['filename']), true);
+            json_decode(file_get_contents($mixDB['path'] . '/' . $mixDB['filename']), false);
 
-        return $this -> get('view') -> render($rResponse, 'pokemons.twig', [
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+            
+        return $this -> get('view') -> render($rResponse, 'pokemons.' . $strExtension, [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.',
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).',
                 'strType' => 'Closure',
                 'strDriver' => $aConfig['db']['driver']
             ],

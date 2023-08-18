@@ -25,12 +25,14 @@ class Pokemon_Controller {
 
         $aData = $aConfig['db']['driver'] == 'mysql' ? 
             $mixDB -> table('pokemons') -> get() : 
-            json_decode(file_get_contents($mixDB['path'] . '/' . $mixDB['filename']), true);
+            json_decode(file_get_contents($mixDB['path'] . '/' . $mixDB['filename']), false);
 
-        return $this -> ciContainer -> get('view') -> render($rResponse, 'pokemons.twig', [
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+
+        return $this -> ciContainer -> get('view') -> render($rResponse, 'pokemons.' . $strExtension, [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.',
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).',
                 'strType' => 'Controller',
                 'strDriver' => $aConfig['db']['driver']
             ],

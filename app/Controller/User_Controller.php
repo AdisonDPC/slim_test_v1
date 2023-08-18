@@ -23,10 +23,12 @@ class User_Controller {
 
         $mixDB = $this -> ciContainer -> get('db');
 
-        return $this -> ciContainer -> get('view') -> render($rResponse, 'users.twig', [
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+
+        return $this -> ciContainer -> get('view') -> render($rResponse, 'users.' . $strExtension, [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.',
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).',
                 'strType' => 'Controller',
                 'strDriver' => $aConfig['db']['driver']
             ],

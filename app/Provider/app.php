@@ -4,7 +4,7 @@ use Psr\Container\ContainerInterface,
 
     Slim\App,
     Slim\Views\Twig,
-    Slim\Views\TwigMiddleware,
+    Slim\Views\PhpRenderer,
 
     Twig\Extension\DebugExtension,
 
@@ -20,12 +20,32 @@ return function (App $aApp) {
 
         $aConfig = $ciContainer -> get('config');
 
-        // Create Twig
-        $tTwig = Twig::create($aConfig['view']['path'], $aConfig['view']['twig']);
+        $aProvider = [
+            'twig' => function () use ($aConfig) {
 
-        $tTwig -> addExtension(new DebugExtension());
+                $strProvider = $aConfig['view']['provider'];
 
-        return $tTwig;
+                // Create Twig.
+                $tTwig = Twig::create($aConfig['view'][ $strProvider ]['path'], $aConfig['view'][ $strProvider ]['options']);
+
+                $tTwig -> addExtension(new DebugExtension());
+
+                return $tTwig;
+
+            },
+            'php-view' => function () use ($aConfig) {
+
+                $strProvider = $aConfig['view']['provider'];
+
+                // Create PHP-View (Renderer).
+                $prRederer = new PhpRenderer($aConfig['view'][ $strProvider ]['path'] . '/');
+
+                return $prRederer;
+
+            }
+        ];
+
+        return isset($aProvider[ $aConfig['view']['provider'] ]) ? $aProvider[ $aConfig['view']['provider'] ]() : $aProvider['twig']();
 
     });
     

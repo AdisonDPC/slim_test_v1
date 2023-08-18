@@ -19,14 +19,18 @@ class Home_Controller {
 
     public function getHome (Request $rRequest, Response $rResponse) {
 
+        $aConfig = $this -> ciContainer -> get('config');
+
+        $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
+
         $aParameters = [
             'aPage' =>  [
-                'strTitle' => 'Welcome - Slim + Twig',
-                'strDescription' => 'Welcome to the oficial page Slim + Twig.'
+                'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
+                'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).'
             ]
         ];
 
-        return $this -> ciContainer -> get('view') -> render($rResponse, 'welcome.twig', $aParameters);
+        return $this -> ciContainer -> get('view') -> render($rResponse, 'welcome.' . $strExtension, $aParameters);
 
     }
 
