@@ -23,14 +23,12 @@ class Home_Controller {
 
         $strExtension = $aConfig['view']['provider'] == 'php-view' ? 'php' : 'twig';
 
-        $aParameters = [
+        return $this -> ciContainer -> get('view') -> render($rResponse, 'welcome.' . $strExtension, [
             'aPage' =>  [
                 'strTitle' => 'Welcome - Slim + (Twig | PHP - View)',
                 'strDescription' => 'Welcome to the oficial page Slim + (Twig | PHP - View).'
             ]
-        ];
-
-        return $this -> ciContainer -> get('view') -> render($rResponse, 'welcome.' . $strExtension, $aParameters);
+        ]);
 
     }
 
