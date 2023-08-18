@@ -22,7 +22,6 @@
     }
   },
   "scripts": {
-    "init": [],
     "dev": [],
     "prod": []
   }
