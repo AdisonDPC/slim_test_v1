@@ -3,7 +3,7 @@
 // Settings (VIEW).
 $aSettings = [
 
-    'path' => __DIR__ . '/../src/views',
+    'path' => __DIR__ . '/../src/view',
     'twig' => [ 'cache' => false ]
 
 ];
