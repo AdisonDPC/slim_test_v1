@@ -22,15 +22,15 @@ $cContainer = $cbContainerBuilder -> build();
 $aApp = $cContainer -> get(App::class);
 
 // Register provider.
-(require __DIR__ . '/../app/Provider/app.php')($aApp);
+(require __DIR__ . '/../app/Provider/kernel.php')($aApp);
 
 // Register middleware.
-(require __DIR__ . '/../app/Middleware/app.php')($aApp);
+(require __DIR__ . '/../app/Middleware/kernel.php')($aApp);
 
 // Register controller.
-(require __DIR__ . '/../app/Controller/app.php')($aApp);
+(require __DIR__ . '/../app/Controller/kernel.php')($aApp);
 
 // Register route.
-(require __DIR__ . '/../app/Route/app.php')($aApp);
+(require __DIR__ . '/../app/Route/kernel.php')($aApp);
 
 return $aApp;
