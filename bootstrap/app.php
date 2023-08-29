@@ -25,7 +25,7 @@ $aApp = $cContainer -> get(App::class);
 (require __DIR__ . '/../app/Provider/kernel.php')($aApp);
 
 // Register middleware.
-(require __DIR__ . '/../app/Middleware/kernel.php')($aApp);
+$emError = (require __DIR__ . '/../app/Middleware/kernel.php')($aApp);
 
 // Register controller.
 (require __DIR__ . '/../app/Controller/kernel.php')($aApp);
